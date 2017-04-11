@@ -1,112 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb5fbc7-f927-4e18-b5f9-626b3b5cf5c3" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Godeps/Godeps.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Godeps/Readme" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Procfile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/antonholmquist/jason/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/antonholmquist/jason/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/antonholmquist/jason/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/antonholmquist/jason/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/antonholmquist/jason/jason.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/aodin/date/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/aodin/date/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/aodin/date/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/aodin/date/date.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/aodin/date/range.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/dariubs/percent/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/dariubs/percent/license" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/dariubs/percent/percent.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/dariubs/percent/readme.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/context/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/context/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/context/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/context/context.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/context/doc.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/mux/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/mux/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/mux/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/mux/context_gorilla.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/mux/context_native.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/mux/doc.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/mux/mux.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/mux/regexp.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/gorilla/mux/route.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/jinzhu/now/Guardfile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/jinzhu/now/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/jinzhu/now/main.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/jinzhu/now/now.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/khosimorafo/imiqasho/main.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/khosimorafo/imiqashoserver/imiqashoserver.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/moul/http2curl/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/moul/http2curl/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/moul/http2curl/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/moul/http2curl/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/moul/http2curl/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/moul/http2curl/http2curl.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/smallnest/goreq/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/smallnest/goreq/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/smallnest/goreq/CHANGELOG" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/smallnest/goreq/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/smallnest/goreq/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/github.com/smallnest/goreq/goreq.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/AUTHORS" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/CONTRIBUTORS" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/PATENTS" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/proxy/direct.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/proxy/per_host.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/proxy/proxy.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/proxy/socks5.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/publicsuffix/gen.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/publicsuffix/list.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/golang.org/x/net/publicsuffix/table.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/README.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/auth.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/bson.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/decimal.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/decode.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/encode.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bson/json.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/bulk.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/cluster.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/doc.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/gridfs.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/decode.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/encode.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/extension.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/fold.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/indent.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/scanner.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/stream.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/json/tags.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sasl.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sasl.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sasl_windows.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sasl_windows.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sasl_windows.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sspi_windows.c" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/sasl/sspi_windows.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/internal/scram/scram.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/log.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/queue.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/raceoff.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/raceon.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/saslimpl.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/saslstub.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/server.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/session.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/socket.go" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/vendor/gopkg.in/mgo.v2/stats.go" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="cdb5fbc7-f927-4e18-b5f9-626b3b5cf5c3" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -157,16 +52,6 @@
                 <element signature="n#!!block;n#respondWithError#0" expanded="false" />
                 <element signature="n#!!block;n#respondWithJSON#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="20" column="26" lean-forward="false" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -329,7 +214,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3168909" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.55007476" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6502242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
