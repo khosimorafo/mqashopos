@@ -14,11 +14,11 @@ func main() {
 	r.HandleFunc("/tenants", tenantHandler)
 	http.Handle("/", r)
 
-	/*
+
 	tenant := imiqasho.Tenant{Name: "M Tenant", Mobile: "0832345678", ZAID: "2222222222222", Site: "Mganka", Room: "3"}
 	var i imiqasho.EntityInterface
 	i = tenant
-	result, body, err := imiqasho.Create(i)
+	result, body, _ := imiqasho.Create(i)
 
 	if result == "success" {
 
@@ -26,7 +26,7 @@ func main() {
 	} else {
 
 
-	}*/
+	}
 }
 
 func tenantHandler(w http.ResponseWriter, r *http.Request) {
