@@ -4,9 +4,11 @@ import "os"
 
 func main() {
 
+	port := os.Getenv("PORT")
+
 	a := App{}
 
 	a.Initialize()
 
-	a.Run(":8080")
+	a.Run(port)
 }
