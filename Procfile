@@ -1,1 +1,1 @@
-“web: mqashopos”
+“web: app”
