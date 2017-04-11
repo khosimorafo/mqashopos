@@ -1,0 +1,83 @@
+{
+	"ImportPath": "github.com/khosimorafo/mqashopos",
+	"GoVersion": "go1.6",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "github.com/antonholmquist/jason",
+			"Comment": "v1.0.0-16-g962e09b",
+			"Rev": "962e09b85496e2e158eec1567fb4c826ce3d55d1"
+		},
+		{
+			"ImportPath": "github.com/aodin/date",
+			"Rev": "c5f6146fc644cedc004c6d9e419094a60a6f653e"
+		},
+		{
+			"ImportPath": "github.com/dariubs/percent",
+			"Rev": "6a210960ed74f0c94ad2c45fb5ba2a49b7fd7b1c"
+		},
+		{
+			"ImportPath": "github.com/gorilla/context",
+			"Comment": "v1.1-7-g08b5f42",
+			"Rev": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.3.0-5-g599cba5",
+			"Rev": "599cba5e7b6137d46ddf58fb1765f5d928e69604"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/now",
+			"Rev": "95f61531f9021a162633b50777cc1263d3064641"
+		},
+		{
+			"ImportPath": "github.com/khosimorafo/imiqasho",
+			"Rev": "236d3a198c41498f1655956773c5a755a3dfb872"
+		},
+		{
+			"ImportPath": "github.com/khosimorafo/imiqashoserver",
+			"Rev": "f0e67c153f5cb4ee07722bd69b2172d183e7eb83"
+		},
+		{
+			"ImportPath": "github.com/moul/http2curl",
+			"Rev": "4e24498b31dba4683efb9d35c1c8a91e2eda28c8"
+		},
+		{
+			"ImportPath": "github.com/smallnest/goreq",
+			"Rev": "d577476c03451596a68e70fcc9e6a1ad2d7582e0"
+		},
+		{
+			"ImportPath": "golang.org/x/net/proxy",
+			"Rev": "f2499483f923065a842d38eb4c7f1927e6fc6e6d"
+		},
+		{
+			"ImportPath": "golang.org/x/net/publicsuffix",
+			"Rev": "f2499483f923065a842d38eb4c7f1927e6fc6e6d"
+		},
+		{
+			"ImportPath": "gopkg.in/mgo.v2",
+			"Comment": "r2016.08.01-5-g3f83fa5",
+			"Rev": "3f83fa5005286a7fe593b055f0d7771a7dce4655"
+		},
+		{
+			"ImportPath": "gopkg.in/mgo.v2/bson",
+			"Comment": "r2016.08.01-5-g3f83fa5",
+			"Rev": "3f83fa5005286a7fe593b055f0d7771a7dce4655"
+		},
+		{
+			"ImportPath": "gopkg.in/mgo.v2/internal/json",
+			"Comment": "r2016.08.01-5-g3f83fa5",
+			"Rev": "3f83fa5005286a7fe593b055f0d7771a7dce4655"
+		},
+		{
+			"ImportPath": "gopkg.in/mgo.v2/internal/sasl",
+			"Comment": "r2016.08.01-5-g3f83fa5",
+			"Rev": "3f83fa5005286a7fe593b055f0d7771a7dce4655"
+		},
+		{
+			"ImportPath": "gopkg.in/mgo.v2/internal/scram",
+			"Comment": "r2016.08.01-5-g3f83fa5",
+			"Rev": "3f83fa5005286a7fe593b055f0d7771a7dce4655"
+		}
+	]
+}
