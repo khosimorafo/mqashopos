@@ -23,9 +23,9 @@ func (a *App) Initialize() {
 	a.initializeRoutes()
 }
 
-func (a *App) Run(addr string) {
+func (a *App) Run(port string) {
 
-	log.Fatal(http.ListenAndServe(":8080", a.Router))
+	log.Fatal(http.ListenAndServe(port, a.Router))
 }
 
 func (a *App) createTenant(w http.ResponseWriter, r *http.Request) {

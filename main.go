@@ -10,5 +10,5 @@ func main() {
 
 	a.Initialize()
 
-	a.Run(port)
+	a.Run(":" + port)
 }
