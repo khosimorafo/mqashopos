@@ -4,7 +4,7 @@ import "os"
 
 func main() {
 
-	port := os.Getenv("8080")
+	port := os.Getenv("PORT")
 
 	a := App{}
 
