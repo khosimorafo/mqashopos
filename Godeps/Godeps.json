@@ -32,15 +32,20 @@
 		},
 		{
 			"ImportPath": "github.com/khosimorafo/imiqasho",
-			"Rev": "b2ec8435da7d772af852351e58985a8d32670ff1"
+			"Rev": "fbaa7fb9ed6ce6ab963011d301dac6070c7253e8"
 		},
 		{
 			"ImportPath": "github.com/khosimorafo/imiqashoserver",
-			"Rev": "11b2dca8b12ee5a7e5c9dedfc1ff3051b28a1b58"
+			"Rev": "95096e23b8f98b321325b478a261e98e8c4fb5dc"
 		},
 		{
 			"ImportPath": "github.com/moul/http2curl",
 			"Rev": "4e24498b31dba4683efb9d35c1c8a91e2eda28c8"
+		},
+		{
+			"ImportPath": "github.com/pkg/errors",
+			"Comment": "v0.8.0-2-g248dadf",
+			"Rev": "248dadf4e9068a0b3e79f02ed0a610d935de5302"
 		},
 		{
 			"ImportPath": "github.com/smallnest/goreq",
