@@ -32,11 +32,11 @@
 		},
 		{
 			"ImportPath": "github.com/khosimorafo/imiqasho",
-			"Rev": "fbaa7fb9ed6ce6ab963011d301dac6070c7253e8"
+			"Rev": "c7ea46d07beb424ce619fcf2f5c7b584ac6e5226"
 		},
 		{
 			"ImportPath": "github.com/khosimorafo/imiqashoserver",
-			"Rev": "95096e23b8f98b321325b478a261e98e8c4fb5dc"
+			"Rev": "a451cc19aa977ffb2818e7985d0fba8a44b538ee"
 		},
 		{
 			"ImportPath": "github.com/moul/http2curl",
