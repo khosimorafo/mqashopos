@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"encoding/json"
 	"github.com/antonholmquist/jason"
+	"bytes"
+	"strconv"
 )
 
 var a App
@@ -24,6 +26,7 @@ func TestMain(m *testing.M) {
 
 	os.Exit(code)
 }
+
 /*
 func TestCreateAndDeleteTenant(t *testing.T) {
 
@@ -242,6 +245,7 @@ func TestCreateTenantWithInitialInvoice(t *testing.T) {
 
 	checkResponseCode(t, http.StatusAccepted, tenant_delete_response.Code)
 }
+*/
 
 func TestCreateTenantWithInvoiceAndPayment(t *testing.T) {
 
@@ -363,6 +367,7 @@ func TestCreateTenantWithInvoiceAndPayment(t *testing.T) {
 	checkResponseCode(t, http.StatusAccepted, tenant_delete_response.Code)
 }
 
+/*
 func TestCreateTenantAndReadInvoices(t *testing.T) {
 
 	// Create Tenant////////////////////////////////////////
@@ -485,7 +490,6 @@ func TestCreateTenantWithInvalidDate(t *testing.T){
 
 	checkResponseCode(t, http.StatusBadRequest, response.Code)
 }
-*/
 
 func TestReadSingleTenant(t *testing.T){
 
@@ -494,7 +498,7 @@ func TestReadSingleTenant(t *testing.T){
 
 	response := executeRequest(request)
 
-	t.Log(response.Body)
+	//t.Log(response.Body)
 
 	checkResponseCode(t, http.StatusOK, response.Code)
 
@@ -517,7 +521,7 @@ func TestReadSingleInvoice(t *testing.T){
 
 	response := executeRequest(request)
 
-	t.Log(response.Body)
+	//t.Log(response.Body)
 
 	checkResponseCode(t, http.StatusOK, response.Code)
 
@@ -540,7 +544,7 @@ func TestReadSinglePayment(t *testing.T){
 
 	response := executeRequest(request)
 
-	t.Log(response.Body)
+	//t.Log(response.Body)
 
 	checkResponseCode(t, http.StatusOK, response.Code)
 
@@ -555,7 +559,7 @@ func TestReadSinglePayment(t *testing.T){
 		t.Errorf("Expected result code 21. Got '%v'", code)
 	}
 }
-
+*/
 func checkResponseCode(t *testing.T, expected, actual int) {
 
 	if expected != actual {

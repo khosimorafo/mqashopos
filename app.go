@@ -301,7 +301,7 @@ func (a *App) getInvoice(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 
-		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+		respondWithJSON(w, http.StatusBadRequest, ResponseWrapper{Code:43, Message:err.Error()})
 	}
 }
 
@@ -326,14 +326,14 @@ func (a *App) getInvoices(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 
-		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+		respondWithJSON(w, http.StatusBadRequest, ResponseWrapper{Code:43, Message:err.Error()})
 	}
 }
 
 func (a *App) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
-	id := vars["id"]
+	id := vars["invoice_id"]
 
 	//fmt.Println("Deleting invoice with id : ",id)
 
@@ -348,7 +348,7 @@ func (a *App) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 		respondWithJSON(w, http.StatusAccepted, map[string]string{"result": "success"})
 	} else {
 
-		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+		respondWithJSON(w, http.StatusNotFound, ResponseWrapper{Code:43, Message:err.Error()})
 	}
 }
 
@@ -370,7 +370,7 @@ func (a *App) makePaymentExtensionRequest(w http.ResponseWriter, r *http.Request
 		respondWithJSON(w, http.StatusAccepted, map[string]string{"result": "success"})
 	} else {
 
-		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+		respondWithJSON(w, http.StatusBadRequest, ResponseWrapper{Code:43, Message:err.Error()})
 	}
 }
 
@@ -401,8 +401,6 @@ func (a *App) createPayment(w http.ResponseWriter, r *http.Request) {
 
 	result, payment, err := tenant.CreatePayment(p)
 
-	//fmt.Printf("createPayment() result is %v", result)
-
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return
@@ -413,7 +411,7 @@ func (a *App) createPayment(w http.ResponseWriter, r *http.Request) {
 			respondWithJSON(w, http.StatusCreated, ResponseWrapper{Code:23, Message:"success", Payment:payment})
 		} else {
 
-			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+			respondWithJSON(w, http.StatusBadRequest, ResponseWrapper{Code:43, Message:err.Error()})
 		}
 	}
 }
@@ -444,7 +442,7 @@ func (a *App) getPayment(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 
-		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+		respondWithJSON(w, http.StatusBadRequest, ResponseWrapper{Code:43, Message:err.Error()})
 	}
 }
 
@@ -471,7 +469,7 @@ func (a *App) updatePayment(w http.ResponseWriter, r *http.Request) {
 		respondWithJSON(w, http.StatusAccepted, body)
 	} else {
 
-		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+		respondWithJSON(w, http.StatusBadRequest, ResponseWrapper{Code:43, Message:err.Error()})
 	}
 }
 
@@ -479,8 +477,6 @@ func (a *App) deletePayment(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
 	id := vars["payment_id"]
-
-	//fmt.Println("Deleting payment with id : ",id)
 
 	p := imiqasho.Payment{ID: id}
 
@@ -559,8 +555,6 @@ func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/tenants/{id:[0-9]+}", a.getTenant).Methods("GET")
 	a.Router.HandleFunc("/payments/{payment_id:[0-9]+}", a.getPayment).Methods("GET")
 	a.Router.HandleFunc("/invoices/{invoice_id:[0-9]+}", a.getInvoice).Methods("GET")
-
-
 }
 
 func respondWithError(w http.ResponseWriter, code int, message string) {
