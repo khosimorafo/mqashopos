@@ -398,14 +398,20 @@ func (a *App) getPayment(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	tenant := imiqasho.Tenant{ID:id}
-	var i imiqasho.EntityInterface
-	i = tenant
-	result, body, err := imiqasho.Read(i)
+	p := imiqasho.Payment{ID:id}
+
+	result, payment, err := p.Read()
+
+	if err != nil {
+
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+	}
 
 	if result == "success" {
 
-		respondWithJSON(w, http.StatusOK, body)
+		//respondWithJSON(w, http.StatusOK, payments)
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code: 21, Message: "success", Payment: payment})
+
 	} else {
 
 		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
@@ -473,16 +479,27 @@ func (a *App) getPayments(w http.ResponseWriter, r *http.Request) {
 		start = 0
 	}
 
-	filters := map[string]string{}
+	vars := mux.Vars(r)
+	id := vars["id"]
 
-	_ , tenants, err := imiqasho.GetTenants(filters)
+	tenant := imiqasho.Tenant{ID:id}
+
+	result, payments, err := tenant.GetPayments(map[string]string{})
 
 	if err != nil {
+
 		respondWithError(w, http.StatusInternalServerError, err.Error())
-		return
 	}
 
-	respondWithJSON(w, http.StatusOK, tenants)
+	if result == "success" {
+
+		//respondWithJSON(w, http.StatusOK, payments)
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code: 21, Message: "success", Payments: payments})
+
+	} else {
+
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+	}
 }
 
 /*****************************************************************/
