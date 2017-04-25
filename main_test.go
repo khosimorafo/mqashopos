@@ -4,10 +4,9 @@ import (
 	"os"
 	"testing"
 	"net/http"
-	"bytes"
 	"net/http/httptest"
-	"encoding/json"
 	"fmt"
+	"encoding/json"
 	"github.com/antonholmquist/jason"
 )
 
@@ -25,7 +24,7 @@ func TestMain(m *testing.M) {
 
 	os.Exit(code)
 }
-
+/*
 func TestCreateAndDeleteTenant(t *testing.T) {
 
 	// Create Tenant////////////////////////////////////////
@@ -100,7 +99,7 @@ func TestCreateAndDeleteTenant(t *testing.T) {
 
 	checkResponseCode(t, http.StatusAccepted, response.Code)
 }
-/*
+
 func TestCreateUpdateAndDeleteTenant(t *testing.T) {
 
 	// Create Tenant////////////////////////////////////////
@@ -487,6 +486,76 @@ func TestCreateTenantWithInvalidDate(t *testing.T){
 	checkResponseCode(t, http.StatusBadRequest, response.Code)
 }
 */
+
+func TestReadSingleTenant(t *testing.T){
+
+	resource := fmt.Sprintf("/tenant/%s", "256831000000046005")
+	request, _ := http.NewRequest("GET", resource, nil)
+
+	response := executeRequest(request)
+
+	t.Log(response.Body)
+
+	checkResponseCode(t, http.StatusOK, response.Code)
+
+	var result map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &result)
+
+	j, _ := json.Marshal(result)
+	e, _ := jason.NewObjectFromBytes(j)
+	code, _ := e.GetInt64("code")
+
+	if code != int64(21) {
+		t.Errorf("Expected result code 21. Got '%v'", code)
+	}
+}
+
+func TestReadSingleInvoice(t *testing.T){
+
+	resource := fmt.Sprintf("/invoices/%s", "256831000000048033")
+	request, _ := http.NewRequest("GET", resource, nil)
+
+	response := executeRequest(request)
+
+	t.Log(response.Body)
+
+	checkResponseCode(t, http.StatusOK, response.Code)
+
+	var result map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &result)
+
+	j, _ := json.Marshal(result)
+	e, _ := jason.NewObjectFromBytes(j)
+	code, _ := e.GetInt64("code")
+
+	if code != int64(21) {
+		t.Errorf("Expected result code 21. Got '%v'", code)
+	}
+}
+
+func TestReadSinglePayment(t *testing.T){
+
+	resource := fmt.Sprintf("/payments/%s", "256831000000141001")
+	request, _ := http.NewRequest("GET", resource, nil)
+
+	response := executeRequest(request)
+
+	t.Log(response.Body)
+
+	checkResponseCode(t, http.StatusOK, response.Code)
+
+	var result map[string]interface{}
+	json.Unmarshal(response.Body.Bytes(), &result)
+
+	j, _ := json.Marshal(result)
+	e, _ := jason.NewObjectFromBytes(j)
+	code, _ := e.GetInt64("code")
+
+	if code != int64(21) {
+		t.Errorf("Expected result code 21. Got '%v'", code)
+	}
+}
+
 func checkResponseCode(t *testing.T, expected, actual int) {
 
 	if expected != actual {

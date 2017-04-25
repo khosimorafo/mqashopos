@@ -76,7 +76,7 @@ func (a *App) getTenant(w http.ResponseWriter, r *http.Request) {
 	tenant := imiqasho.Tenant{ID:id}
 	var i imiqasho.EntityInterface
 	i = tenant
-	result, ten, error := imiqasho.Read(i)
+	result, entity, error := imiqasho.Read(i)
 
 	if error != nil {
 
@@ -86,7 +86,7 @@ func (a *App) getTenant(w http.ResponseWriter, r *http.Request) {
 
 		if result == "success" {
 
-			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:21, Message:"success", Tenant:ten})
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code: 21, Message: "success", Tenant: entity})
 
 		} else {
 
@@ -280,6 +280,31 @@ func checkIfMoveInDateIsValid(date string) (bool) {
 
 /**********Invoices ***********************************************/
 
+func (a *App) getInvoice(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	invoice_id :=vars["invoice_id"]
+
+	i := imiqasho.Invoice{ID: invoice_id}
+
+	result, entity, err := imiqasho.Read(i)
+
+	if err != nil {
+
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+	}
+
+	if result == "success" {
+
+		//respondWithJSON(w, http.StatusOK, payments)
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code: 21, Message: "success", Invoice: entity})
+
+	} else {
+
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+	}
+}
+
 func (a *App) getInvoices(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
@@ -396,11 +421,16 @@ func (a *App) createPayment(w http.ResponseWriter, r *http.Request) {
 func (a *App) getPayment(w http.ResponseWriter, r *http.Request) {
 
 	vars := mux.Vars(r)
-	id := vars["id"]
+	//customer_id := vars["id"]
+	payment_id :=vars["payment_id"]
 
-	p := imiqasho.Payment{ID:id}
+	p := imiqasho.Payment{ID:payment_id}
 
-	result, payment, err := p.Read()
+	//p := imiqasho.Payment{ID:"256831000000048057"}
+
+	result, entity, err := imiqasho.Read(p)
+
+	//result, payment, err := p.Read()
 
 	if err != nil {
 
@@ -410,7 +440,7 @@ func (a *App) getPayment(w http.ResponseWriter, r *http.Request) {
 	if result == "success" {
 
 		//respondWithJSON(w, http.StatusOK, payments)
-		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code: 21, Message: "success", Payment: payment})
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code: 21, Message: "success", Payment: entity})
 
 	} else {
 
@@ -516,14 +546,20 @@ func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoices", a.createNextTenantInvoice).Methods("POST")
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/create_first_invoice", a.createFirstTenantInvoice).Methods("GET")
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/create_next_invoice", a.createNextTenantInvoice).Methods("GET")
-	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoice/{id:[0-9]+}", a.deleteInvoice).Methods("DELETE")
-	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoice/{id:[0-9]+}", a.makePaymentExtensionRequest).Methods("POST")
+	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoice/{invoice_id:[0-9]+}", a.getInvoice).Methods("GET")
+	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoice/{invoice_id:[0-9]+}", a.deleteInvoice).Methods("DELETE")
+	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoice/{invoice_id:[0-9]+}", a.makePaymentExtensionRequest).Methods("POST")
 
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/payments", a.getPayments).Methods("GET")
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/payments", a.createPayment).Methods("POST")
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/payment/{payment_id:[0-9]+}", a.getPayment).Methods("GET")
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/payment/{payment_id:[0-9]+}", a.updateTenant).Methods("PUT")
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/payment/{payment_id:[0-9]+}", a.deletePayment).Methods("DELETE")
+
+	a.Router.HandleFunc("/tenants/{id:[0-9]+}", a.getTenant).Methods("GET")
+	a.Router.HandleFunc("/payments/{payment_id:[0-9]+}", a.getPayment).Methods("GET")
+	a.Router.HandleFunc("/invoices/{invoice_id:[0-9]+}", a.getInvoice).Methods("GET")
+
 
 }
 
