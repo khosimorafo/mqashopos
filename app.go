@@ -3,13 +3,12 @@ package main
 import (
 	"net/http"
 	"encoding/json"
-	"github.com/khosimorafo/imiqasho"
-
 	"strconv"
 	"log"
-	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/antonholmquist/jason"
+	"github.com/khosimorafo/imiqasho"
+	"github.com/khosimorafo/imiqashoserver"
 )
 
 type App struct {
@@ -28,15 +27,26 @@ func (a *App) Run(port string) {
 	log.Fatal(http.ListenAndServe(port, a.Router))
 }
 
+
+/**********Tenants ***********************************************/
+
 func (a *App) createTenant(w http.ResponseWriter, r *http.Request) {
 
 	var p imiqasho.Tenant
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&p); err != nil {
-		respondWithError(w, http.StatusBadRequest, "Invalid request payload")
+		respondWithJSON(w, http.StatusBadRequest, ResponseWrapper{Code:43, Message:"IInvalid request payload."})
 		return
 	}
 	defer r.Body.Close()
+
+	checksOut := checkIfMoveInDateIsValid(p.MoveInDate)
+
+	if !checksOut {
+
+		respondWithJSON(w, http.StatusBadRequest, ResponseWrapper{Code:43, Message:"Invalid tenant move in date."})
+		return
+	}
 
 	var i imiqasho.EntityInterface
 	i = p
@@ -49,82 +59,11 @@ func (a *App) createTenant(w http.ResponseWriter, r *http.Request) {
 
 		if result == "success" {
 
-			respondWithJSON(w, http.StatusCreated, body)
+			respondWithJSON(w, http.StatusCreated, ResponseWrapper{Code:23, Message:"success", Tenant:body})
+
 		} else {
 
-			respondWithJSON(w, http.StatusNotAcceptable, result)
-		}
-	}
-}
-
-func (a *App) createTenantInvoice(w http.ResponseWriter, r *http.Request) {
-
-	vars := mux.Vars(r)
-	id := vars["id"]
-
-	tenant := imiqasho.Tenant{ID:id}
-
-	result, entity, _ := imiqasho.Read(tenant)
-
-	b, _ := json.Marshal(entity)
-	v, _ := jason.NewObjectFromBytes(b)
-	tenant_id, _ := v.GetString("id")
-	//period_name, _ := v.GetString("period_name")
-
-	//fmt.Printf("CreateFirstTenantInvoice id : ", tenant_id)
-
-	ten := imiqasho.Tenant{ID:tenant_id}
-
-	result, invoice, error := ten.CreateTenantInvoice("")
-
-	if error != nil {
-
-		respondWithError(w, http.StatusInternalServerError, error.Error())
-		return
-	} else {
-
-		if result == "success" {
-
-			respondWithJSON(w, http.StatusCreated, invoice)
-		} else {
-
-			respondWithJSON(w, http.StatusNotAcceptable, result)
-		}
-	}
-}
-
-func (a *App) createFirstTenantInvoice(w http.ResponseWriter, r *http.Request) {
-
-	vars := mux.Vars(r)
-	id := vars["id"]
-
-	tenant := imiqasho.Tenant{ID:id}
-
-	result, entity, _ := imiqasho.Read(tenant)
-
-	b, _ := json.Marshal(entity)
-	v, _ := jason.NewObjectFromBytes(b)
-	tenant_id, _ := v.GetString("id")
-	in_date, _ := v.GetString("move_in_date")
-
-	//fmt.Printf("CreateFirstTenantInvoice id : ", tenant_id)
-
-	ten := imiqasho.Tenant{ID:tenant_id, MoveInDate:in_date}
-
-	result, invoice, error := ten.CreateFirstTenantInvoice()
-
-	if error != nil {
-
-		respondWithError(w, http.StatusInternalServerError, error.Error())
-		return
-	} else {
-
-		if result == "success" {
-
-			respondWithJSON(w, http.StatusCreated, invoice)
-		} else {
-
-			respondWithJSON(w, http.StatusNotAcceptable, result)
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
 		}
 	}
 }
@@ -137,14 +76,22 @@ func (a *App) getTenant(w http.ResponseWriter, r *http.Request) {
 	tenant := imiqasho.Tenant{ID:id}
 	var i imiqasho.EntityInterface
 	i = tenant
-	result, body, _ := imiqasho.Read(i)
+	result, ten, error := imiqasho.Read(i)
 
-	if result == "success" {
+	if error != nil {
 
-		respondWithJSON(w, http.StatusOK, body)
+		respondWithError(w, http.StatusInternalServerError, error.Error())
+		return
 	} else {
 
-		respondWithError(w, http.StatusNotFound, "Tenant not found")
+		if result == "success" {
+
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:21, Message:"success", Tenant:ten})
+
+		} else {
+
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:error.Error()})
+		}
 	}
 }
 
@@ -164,17 +111,22 @@ func (a *App) updateTenant(w http.ResponseWriter, r *http.Request) {
 
 	var i imiqasho.EntityInterface
 	i = p
-	result, body, _ := imiqasho.Update(i)
+	result, tenant, error := imiqasho.Update(i)
 
-	if result == "success" {
+	if error != nil {
 
-		respondWithJSON(w, http.StatusAccepted, body)
+		respondWithError(w, http.StatusInternalServerError, error.Error())
+		return
 	} else {
 
-		respondWithJSON(w, http.StatusNotAcceptable, result)
-	}
+		if result == "success" {
 
-	//respondWithJSON(w, http.StatusAccepted, body)
+			respondWithJSON(w, http.StatusAccepted, ResponseWrapper{Code:21, Message:"success", Tenant:tenant})
+		} else {
+
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:error.Error()})
+		}
+	}
 }
 
 func (a *App) deleteTenant(w http.ResponseWriter, r *http.Request) {
@@ -182,20 +134,27 @@ func (a *App) deleteTenant(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	fmt.Println("Deleting tenant with id : ",id)
+	////fmt.Println("Deleting tenant with id : ",id)
 
 	p := imiqasho.Tenant{ID: id}
 
 	var i imiqasho.EntityInterface
 	i = p
-	result, _ := imiqasho.Delete(i)
+	result, error := imiqasho.Delete(i)
 
-	if result == "success" {
+	if error != nil {
 
-		respondWithJSON(w, http.StatusAccepted, map[string]string{"result": "success"})
+		respondWithError(w, http.StatusInternalServerError, error.Error())
+		return
 	} else {
 
-		respondWithError(w, http.StatusNotFound, "Tenant not found")
+		if result == "success" {
+
+			respondWithJSON(w, http.StatusAccepted, map[string]string{"result": "success"})
+		} else {
+
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:error.Error()})
+		}
 	}
 }
 
@@ -213,15 +172,113 @@ func (a *App) getTenants(w http.ResponseWriter, r *http.Request) {
 
 	filters := map[string]string{}
 
-	_ , tenants, err := imiqasho.GetTenants(filters)
+	result, tenants, err := imiqasho.GetTenants(filters)
 
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return
+	}else {
+
+		if result == "success" {
+
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:21, Message:"success", Tenants:tenants})
+		} else {
+
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+		}
 	}
 
-	respondWithJSON(w, http.StatusOK, tenants)
 }
+
+func (a *App) createFirstTenantInvoice(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	tenant := imiqasho.Tenant{ID:id}
+
+	result, entity, err := imiqasho.Read(tenant)
+	if err != nil {
+
+		respondWithJSON(w, http.StatusNotAcceptable, "Please submit valid customer_id")
+		return
+	}
+
+	if result == "failure" {
+
+		respondWithJSON(w, http.StatusNotAcceptable, "Please submit valid customer_id")
+		return
+	}
+
+	b, _ := json.Marshal(entity)
+	v, _ := jason.NewObjectFromBytes(b)
+	tenant_id, _ := v.GetString("id")
+	in_date, _ := v.GetString("move_in_date")
+
+	////fmt.Printf("CreateFirstTenantInvoice id : ", tenant_id)
+
+	ten := imiqasho.Tenant{ID:tenant_id, MoveInDate:in_date}
+
+	result, invoice, error := ten.CreateFirstTenantInvoice()
+
+
+	if error != nil {
+
+		respondWithError(w, http.StatusInternalServerError, error.Error())
+		return
+	} else {
+
+		if result == "success" {
+			respondWithJSON(w, http.StatusCreated, ResponseWrapper{Code:23, Message:"success", Invoice:invoice})
+
+		} else {
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+		}
+	}
+}
+
+func (a *App) createNextTenantInvoice(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	tenant := imiqasho.Tenant{ID:id}
+
+	result, entity, _ := imiqasho.Read(tenant)
+
+	b, _ := json.Marshal(entity)
+	v, _ := jason.NewObjectFromBytes(b)
+	tenant_id, _ := v.GetString("id")
+	ten := imiqasho.Tenant{ID:tenant_id}
+
+	result, invoice, error := ten.CreateNextTenantInvoice()
+
+	if error != nil {
+
+		respondWithError(w, http.StatusInternalServerError, error.Error())
+		return
+	} else {
+
+		if result == "success" {
+			respondWithJSON(w, http.StatusCreated, ResponseWrapper{Code:23, Message:"success", Invoice:invoice})
+
+		} else {
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:error.Error()})
+		}
+	}
+}
+
+func checkIfMoveInDateIsValid(date string) (bool) {
+
+	_, _, err := imiqashoserver.DateFormatter(date)
+
+	if err != nil {
+		return false
+	}
+	return true
+}
+
+/**********Invoices ***********************************************/
 
 func (a *App) getInvoices(w http.ResponseWriter, r *http.Request) {
 
@@ -239,10 +296,12 @@ func (a *App) getInvoices(w http.ResponseWriter, r *http.Request) {
 
 	if result == "success" {
 
-		respondWithJSON(w, http.StatusOK, invoices)
+		//respondWithJSON(w, http.StatusOK, invoices)
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:21, Message:"success", Invoices:invoices})
+
 	} else {
 
-		respondWithError(w, http.StatusNotFound, "Tenant not found")
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
 	}
 }
 
@@ -251,20 +310,42 @@ func (a *App) deleteInvoice(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 
-	fmt.Println("Deleting invoice with id : ",id)
+	//fmt.Println("Deleting invoice with id : ",id)
 
 	p := imiqasho.Invoice{ID: id}
 
 	var i imiqasho.EntityInterface
 	i = p
-	result, _ := imiqasho.Delete(i)
+	result, err := imiqasho.Delete(i)
 
 	if result == "success" {
 
 		respondWithJSON(w, http.StatusAccepted, map[string]string{"result": "success"})
 	} else {
 
-		respondWithError(w, http.StatusNotFound, "Invoice not found")
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
+	}
+}
+
+func (a *App) makePaymentExtensionRequest(w http.ResponseWriter, r *http.Request) {
+
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	//fmt.Println("Deleting invoice with id : ",id)
+
+	p := imiqasho.Invoice{ID: id}
+
+	var i imiqasho.EntityInterface
+	i = p
+	result, err := imiqasho.Delete(i)
+
+	if result == "success" {
+
+		respondWithJSON(w, http.StatusAccepted, map[string]string{"result": "success"})
+	} else {
+
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
 	}
 }
 
@@ -285,12 +366,6 @@ func (a *App) createPayment(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//b, _ := json.Marshal(entity)
-	//v, _ := jason.NewObjectFromBytes(b)
-	//tenant_id, _ := v.GetString("id")
-
-	//ten := imiqasho.Tenant{ID:tenant_id}
-
 	var p imiqasho.PaymentPayload
 	decoder := json.NewDecoder(r.Body)
 	if err := decoder.Decode(&p); err != nil {
@@ -301,6 +376,8 @@ func (a *App) createPayment(w http.ResponseWriter, r *http.Request) {
 
 	result, payment, err := tenant.CreatePayment(p)
 
+	//fmt.Printf("createPayment() result is %v", result)
+
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, err.Error())
 		return
@@ -308,10 +385,10 @@ func (a *App) createPayment(w http.ResponseWriter, r *http.Request) {
 
 		if result == "success" {
 
-			respondWithJSON(w, http.StatusCreated, payment)
+			respondWithJSON(w, http.StatusCreated, ResponseWrapper{Code:23, Message:"success", Payment:payment})
 		} else {
 
-			respondWithJSON(w, http.StatusNotAcceptable, result)
+			respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
 		}
 	}
 }
@@ -324,14 +401,14 @@ func (a *App) getPayment(w http.ResponseWriter, r *http.Request) {
 	tenant := imiqasho.Tenant{ID:id}
 	var i imiqasho.EntityInterface
 	i = tenant
-	result, body, _ := imiqasho.Read(i)
+	result, body, err := imiqasho.Read(i)
 
 	if result == "success" {
 
 		respondWithJSON(w, http.StatusOK, body)
 	} else {
 
-		respondWithError(w, http.StatusNotFound, "Tenant not found")
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
 	}
 }
 
@@ -351,17 +428,15 @@ func (a *App) updatePayment(w http.ResponseWriter, r *http.Request) {
 
 	var i imiqasho.EntityInterface
 	i = p
-	result, body, _ := imiqasho.Update(i)
+	result, body, err := imiqasho.Update(i)
 
 	if result == "success" {
 
 		respondWithJSON(w, http.StatusAccepted, body)
 	} else {
 
-		respondWithJSON(w, http.StatusNotAcceptable, result)
+		respondWithJSON(w, http.StatusOK, ResponseWrapper{Code:43, Message:err.Error()})
 	}
-
-	//respondWithJSON(w, http.StatusAccepted, body)
 }
 
 func (a *App) deletePayment(w http.ResponseWriter, r *http.Request) {
@@ -369,7 +444,7 @@ func (a *App) deletePayment(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["payment_id"]
 
-	fmt.Println("Deleting payment with id : ",id)
+	//fmt.Println("Deleting payment with id : ",id)
 
 	p := imiqasho.Payment{ID: id}
 
@@ -421,9 +496,11 @@ func (a *App) initializeRoutes() {
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}", a.deleteTenant).Methods("DELETE")
 
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoices", a.getInvoices).Methods("GET")
-	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoices", a.createTenantInvoice).Methods("POST")
+	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoices", a.createNextTenantInvoice).Methods("POST")
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/create_first_invoice", a.createFirstTenantInvoice).Methods("GET")
+	a.Router.HandleFunc("/tenant/{id:[0-9]+}/create_next_invoice", a.createNextTenantInvoice).Methods("GET")
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoice/{id:[0-9]+}", a.deleteInvoice).Methods("DELETE")
+	a.Router.HandleFunc("/tenant/{id:[0-9]+}/invoice/{id:[0-9]+}", a.makePaymentExtensionRequest).Methods("POST")
 
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/payments", a.getPayments).Methods("GET")
 	a.Router.HandleFunc("/tenant/{id:[0-9]+}/payments", a.createPayment).Methods("POST")
@@ -445,4 +522,20 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(code)
 	w.Write(response)
+}
+
+type ResponseWrapper struct {
+
+	Code    	int    		`json:"code,omitempty"`
+	Message 	string    	`json:"message,omitempty"`
+	Tenant  	interface{}    	`json:"tenant,omitempty"`
+	Tenants  	interface{}    	`json:"tenants,omitempty"`
+	Invoice  	interface{}    	`json:"invoice,omitempty"`
+	Invoices  	interface{}    	`json:"invoices,omitempty"`
+	Item  	 	interface{}    	`json:"item,omitempty"`
+	Items  	 	interface{}    	`json:"items,omitempty"`
+	Payment  	interface{}    	`json:"payment,omitempty"`
+	Payments  	interface{}    	`json:"payments,omitempty"`
+
+	Data  	 	interface{}    	`json:"data,omitempty"`
 }
