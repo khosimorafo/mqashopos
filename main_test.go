@@ -27,7 +27,7 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-/*
+/**/
 func TestCreateAndDeleteTenant(t *testing.T) {
 
 	// Create Tenant////////////////////////////////////////
@@ -245,7 +245,6 @@ func TestCreateTenantWithInitialInvoice(t *testing.T) {
 
 	checkResponseCode(t, http.StatusAccepted, tenant_delete_response.Code)
 }
-*/
 
 func TestCreateTenantWithInvoiceAndPayment(t *testing.T) {
 
@@ -367,7 +366,6 @@ func TestCreateTenantWithInvoiceAndPayment(t *testing.T) {
 	checkResponseCode(t, http.StatusAccepted, tenant_delete_response.Code)
 }
 
-/*
 func TestCreateTenantAndReadInvoices(t *testing.T) {
 
 	// Create Tenant////////////////////////////////////////
@@ -490,7 +488,7 @@ func TestCreateTenantWithInvalidDate(t *testing.T){
 
 	checkResponseCode(t, http.StatusBadRequest, response.Code)
 }
-
+/**/
 func TestReadSingleTenant(t *testing.T){
 
 	resource := fmt.Sprintf("/tenant/%s", "256831000000046005")
@@ -559,7 +557,7 @@ func TestReadSinglePayment(t *testing.T){
 		t.Errorf("Expected result code 21. Got '%v'", code)
 	}
 }
-*/
+
 func checkResponseCode(t *testing.T, expected, actual int) {
 
 	if expected != actual {
